@@ -25,6 +25,19 @@ class DbUserRepository(UserRepository):
         finally:
             db.session.close()
 
+    def find_by_email(self, email: str) -> User:
+        try:
+            with DBConnectionHandler() as db:
+                user = db.session.query(UserModel).filter_by(email=email).one()
+                return self.builder.build_from_model(model=user)
+        except NoResultFound:
+            return None
+        except:
+            db.session.rollback()
+            raise
+        finally:
+            db.session.close()
+
     def find_all(self, filter: Dict = None) -> List[User]:
         with DBConnectionHandler() as db:
             try:

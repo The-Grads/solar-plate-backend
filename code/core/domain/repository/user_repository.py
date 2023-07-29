@@ -10,6 +10,10 @@ class UserRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
+    def find_by_email(self, email: str) -> User:
+        raise NotImplementedError
+
+    @abstractmethod
     def find_all(self, filter: Dict = {}) -> List[User]:
         raise NotImplementedError
 
