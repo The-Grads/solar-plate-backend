@@ -15,8 +15,8 @@ class DbPowerDataRepository(PowerDataRepository):
     def find(self, id: str) -> PowerData:
         try:
             with DBConnectionHandler() as db:
-                user = db.session.query(PowerDataModel).filter_by(id=id).one()
-                return self.builder.build_from_model(model=user)
+                power_data = db.session.query(PowerDataModel).filter_by(id=id).one()
+                return self.builder.build_from_model(model=power_data)
         except NoResultFound:
             return None
         except:
@@ -28,8 +28,11 @@ class DbPowerDataRepository(PowerDataRepository):
     def find_all(self, filter: Dict = None) -> List[PowerData]:
         with DBConnectionHandler() as db:
             try:
-                users = db.session.query(PowerDataModel).all()
-                return [self.builder.build_from_model(model=user) for user in users]
+                power_data_list = db.session.query(PowerDataModel).all()
+                return [
+                    self.builder.build_from_model(model=power_data)
+                    for power_data in power_data_list
+                ]
             except Exception as exception:
                 db.session.rollback()
                 raise exception
@@ -57,7 +60,41 @@ class DbPowerDataRepository(PowerDataRepository):
         return None
 
     def update(self, power_data: PowerData) -> List[PowerData]:
-        raise NotImplementedError
+        with DBConnectionHandler() as db:
+            try:
+                power_data_model = (
+                    db.session.query(PowerDataModel).filter_by(id=power_data.id).one()
+                )
+                power_data_model.power_delivery = power_data.power_delivery
+                power_data_model.solar_plate_id = power_data.solar_plate_id
+                power_data_model.event_date = power_data.event_date
+
+                db.session.add(power_data_model)
+                db.session.commit()
+
+                return self.builder.build_from_model(model=power_data_model)
+            except Exception as error:
+                db.session.rollback()
+                raise error
+            finally:
+                db.session.close()
+
+        return None
 
     def delete(self, id: str) -> None:
-        raise NotImplementedError
+        with DBConnectionHandler() as db:
+            try:
+                power_data_model = (
+                    db.session.query(PowerDataModel).filter_by(id=id).one()
+                )
+                db.session.delete(power_data_model)
+                db.session.commit()
+
+                return self.builder.build_from_model(model=power_data_model)
+            except Exception as error:
+                db.session.rollback()
+                raise error
+            finally:
+                db.session.close()
+
+        return None

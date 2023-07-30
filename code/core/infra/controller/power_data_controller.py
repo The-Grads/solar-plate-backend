@@ -1,11 +1,10 @@
-from datetime import datetime
 from typing import List
 
 from fastapi import APIRouter
 
 from core.infra.builder.power_data_builder import PowerDataBuilder
 from core.infra.factory.power_service_data_factory import PowerDataServiceFactory
-from core.infra.schema.power_data import CreatePowerData, PowerData
+from core.infra.schema.power_data import CreatePowerData, PowerData, UpdatePowerData
 
 power_data_router = APIRouter(
     tags=["Power Data"],
@@ -32,3 +31,17 @@ async def create_power_data(power_data: CreatePowerData):
         power_data=power_data_builder.build(dict(power_data)),
     )
     return created_power_data
+
+
+@power_data_router.put("/{id}", response_model=PowerData)
+async def update_power_data(id: str, power_data: UpdatePowerData):
+    power_data_builder = PowerDataBuilder()
+    created_power_data = power_data_service.update(
+        power_data=power_data_builder.build({"id": id, **dict(power_data)}),
+    )
+    return created_power_data
+
+
+@power_data_router.delete("/{id}")
+async def update_power_data(id: str):
+    power_data_service.delete(id)

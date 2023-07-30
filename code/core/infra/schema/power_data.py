@@ -12,6 +12,21 @@ class PowerData(Entity):
     event_date: Optional[datetime]
 
 
+class UpdatePowerData(BaseModel):
+    power_delivery: float
+    event_date: Optional[datetime]
+
+    class Config:
+        json_schema_extra = {
+            "examples": [
+                {
+                    "power_delivery": 10.1,
+                    "event_date": "2023-07-20T14:12:37.723919",
+                }
+            ]
+        }
+
+
 class CreatePowerData(BaseModel):
     solar_plate_id: str
     power_delivery: float

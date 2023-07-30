@@ -6,6 +6,7 @@ from shared.infra.builder.base_builder import BaseBuilder
 class PowerDataBuilder(BaseBuilder):
     def build(self, json_data: dict) -> PowerData:
         return PowerData(
+            id=json_data.get("id"),
             solar_plate_id=json_data.get("solar_plate_id"),
             power_delivery=json_data.get("power_delivery"),
             event_date=json_data.get("event_date"),
