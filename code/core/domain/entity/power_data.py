@@ -1,4 +1,5 @@
 import dataclasses
+from datetime import datetime
 from typing import Optional
 
 from shared.domain.entity import BaseEntity
@@ -8,3 +9,4 @@ from shared.domain.entity import BaseEntity
 class PowerData(BaseEntity):
     solar_plate_id: str
     power_delivery: float
+    event_date: Optional[datetime] = None

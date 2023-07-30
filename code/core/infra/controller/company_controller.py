@@ -17,7 +17,6 @@ company_service = CompanyServiceFactory().create()
 
 @company_router.get("/", response_model=List[Company])
 async def list_company():
-    print("TESTE: ", company_service.company_repository.find_all())
     return company_service.company_repository.find_all()
 
 

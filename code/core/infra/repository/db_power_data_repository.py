@@ -42,6 +42,7 @@ class DbPowerDataRepository(PowerDataRepository):
                 power_data_model = PowerDataModel(
                     power_delivery=power_data.power_delivery,
                     solar_plate_id=power_data.solar_plate_id,
+                    event_date=power_data.event_date,
                 )
                 db.session.add(power_data_model)
                 db.session.commit()

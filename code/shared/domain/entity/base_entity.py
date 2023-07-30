@@ -1,8 +1,6 @@
-import uuid
 from dataclasses import asdict, dataclass
 from datetime import datetime
 from typing import Any, Optional
-
 
 
 @dataclass(init=True, frozen=True, slots=True, kw_only=True)

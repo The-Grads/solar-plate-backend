@@ -1,4 +1,6 @@
-from sqlalchemy import Column, Float, ForeignKey
+from datetime import datetime
+
+from sqlalchemy import Column, DateTime, Float, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, relationship
 
@@ -12,6 +14,7 @@ class PowerDataModel(BaseModel):
         Float,
         nullable=False,
     )
+    event_date: Mapped[datetime] = Column(DateTime, nullable=True)
     solar_plate_id: Mapped[int] = Column(
         UUID(as_uuid=True), ForeignKey("solar_plate.id")
     )
