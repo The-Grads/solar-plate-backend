@@ -8,5 +8,5 @@ from .user import User
 
 @dataclasses.dataclass(init=True, frozen=True, slots=True, kw_only=True)
 class Company(BaseEntity):
-    name: Optional[str] = None
-    users: Optional[List[User]]
+    name: Optional[str]
+    users: Optional[List[User]] = None
