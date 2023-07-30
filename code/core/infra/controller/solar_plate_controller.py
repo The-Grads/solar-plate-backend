@@ -5,7 +5,7 @@ from fastapi import APIRouter
 
 from core.infra.builder.solar_plate_builder import SolarPlateBuilder
 from core.infra.factory.solar_service_plate_factory import SolarPlateServiceFactory
-from core.infra.schema.solar_plate import CreateSolarPlate, SolarPlate
+from core.infra.schema.solar_plate import CreateSolarPlate, SolarPlate, UpdateSolarPlate
 
 solar_plate_router = APIRouter(
     tags=["Solar Plate"],
@@ -32,3 +32,17 @@ async def create_solar_plate(solar_plate: CreateSolarPlate):
         solar_plate=solar_plate_builder.build(dict(solar_plate)),
     )
     return created_solar_plate
+
+
+@solar_plate_router.put("/{id}", response_model=SolarPlate)
+async def update_power_data(id: str, power_data: UpdateSolarPlate):
+    solar_plate_builder = SolarPlateBuilder()
+    created_solar_plate = solar_plate_service.update(
+        solar_plate=solar_plate_builder.build({"id": id, **dict(power_data)}),
+    )
+    return created_solar_plate
+
+
+@solar_plate_router.delete("/{id}")
+async def update_power_data(id: str):
+    solar_plate_service.delete(id)

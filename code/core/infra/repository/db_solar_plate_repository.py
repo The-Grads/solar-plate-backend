@@ -15,8 +15,8 @@ class DbSolarPlateRepository(SolarPlateRepository):
     def find(self, id: str) -> SolarPlate:
         try:
             with DBConnectionHandler() as db:
-                user = db.session.query(SolarPlateModel).filter_by(id=id).one()
-                return self.builder.build_from_model(model=user)
+                solar_plate = db.session.query(SolarPlateModel).filter_by(id=id).one()
+                return self.builder.build_from_model(model=solar_plate)
         except NoResultFound:
             return None
         except:
@@ -28,8 +28,11 @@ class DbSolarPlateRepository(SolarPlateRepository):
     def find_all(self, filter: Dict = None) -> List[SolarPlate]:
         with DBConnectionHandler() as db:
             try:
-                users = db.session.query(SolarPlateModel).all()
-                return [self.builder.build_from_model(model=user) for user in users]
+                solar_plates = db.session.query(SolarPlateModel).all()
+                return [
+                    self.builder.build_from_model(model=solar_plate)
+                    for solar_plate in solar_plates
+                ]
             except Exception as exception:
                 db.session.rollback()
                 raise exception
@@ -56,7 +59,40 @@ class DbSolarPlateRepository(SolarPlateRepository):
         return None
 
     def update(self, solar_plate: SolarPlate) -> List[SolarPlate]:
-        raise NotImplementedError
+        with DBConnectionHandler() as db:
+            try:
+                solar_plate_model = (
+                    db.session.query(SolarPlateModel).filter_by(id=solar_plate.id).one()
+                )
+                solar_plate_model.name = solar_plate.name
+                solar_plate_model.user_id = solar_plate.user_id
+
+                db.session.add(solar_plate_model)
+                db.session.commit()
+
+                return self.builder.build_from_model(model=solar_plate_model)
+            except Exception as error:
+                db.session.rollback()
+                raise error
+            finally:
+                db.session.close()
+
+        return None
 
     def delete(self, id: str) -> None:
-        raise NotImplementedError
+        with DBConnectionHandler() as db:
+            try:
+                solar_plate_model = (
+                    db.session.query(SolarPlateModel).filter_by(id=id).one()
+                )
+                db.session.delete(solar_plate_model)
+                db.session.commit()
+
+                return self.builder.build_from_model(model=solar_plate_model)
+            except Exception as error:
+                db.session.rollback()
+                raise error
+            finally:
+                db.session.close()
+
+        return None

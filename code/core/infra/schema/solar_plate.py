@@ -13,6 +13,19 @@ class SolarPlate(Entity):
     power_data: Optional[List[PowerData]]
 
 
+class UpdateSolarPlate(BaseModel):
+    name: str
+
+    class Config:
+        json_schema_extra = {
+            "examples": [
+                {
+                    "name": "SolarPlate",
+                }
+            ]
+        }
+
+
 class CreateSolarPlate(BaseModel):
     name: str
     user_id: str | None = None

@@ -10,6 +10,7 @@ class SolarPlateBuilder(BaseBuilder):
 
     def build(self, json_data: dict) -> SolarPlate:
         return SolarPlate(
+            id=json_data.get("id"),
             name=json_data.get("name"),
             user_id=json_data.get("user_id"),
         )
