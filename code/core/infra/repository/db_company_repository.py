@@ -55,7 +55,36 @@ class DbCompanyRepository(CompanyRepository):
         return None
 
     def update(self, company: Company) -> List[Company]:
-        raise NotImplementedError
+        with DBConnectionHandler() as db:
+            try:
+                company_model = (
+                    db.session.query(CompanyModel).filter_by(id=company.id).one()
+                )
+                company_model.name = company.name
+
+                db.session.add(company_model)
+                db.session.commit()
+
+                return self.builder.build_from_model(model=company_model)
+            except Exception as error:
+                db.session.rollback()
+                raise error
+            finally:
+                db.session.close()
+
+        return None
 
     def delete(self, id: str) -> None:
-        raise NotImplementedError
+        with DBConnectionHandler() as db:
+            try:
+                company_model = db.session.query(CompanyModel).filter_by(id=id).one()
+                db.session.delete(company_model)
+                db.session.commit()
+
+            except Exception as error:
+                db.session.rollback()
+                raise error
+            finally:
+                db.session.close()
+
+        return None

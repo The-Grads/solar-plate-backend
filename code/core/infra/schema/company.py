@@ -12,6 +12,13 @@ class Company(Entity):
     users: Optional[List[User]]
 
 
+class UpdateCompany(BaseModel):
+    name: str
+
+    class Config:
+        json_schema_extra = {"examples": [{"name": "Company"}]}
+
+
 class CreateCompany(BaseModel):
     name: str
 

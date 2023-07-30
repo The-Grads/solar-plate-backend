@@ -10,6 +10,7 @@ class CompanyBuilder(BaseBuilder):
 
     def build(self, json_data: dict) -> Company:
         return Company(
+            id=json_data.get("id"),
             name=json_data.get("name"),
         )
 

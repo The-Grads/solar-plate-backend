@@ -5,7 +5,7 @@ from fastapi import APIRouter
 
 from core.infra.builder.company_builder import CompanyBuilder
 from core.infra.factory.company_service_factory import CompanyServiceFactory
-from core.infra.schema.company import Company, CreateCompany
+from core.infra.schema.company import Company, CreateCompany, UpdateCompany
 
 company_router = APIRouter(
     tags=["Company"],
@@ -32,3 +32,17 @@ async def create_company(company: CreateCompany):
         company=company_builder.build(dict(company)),
     )
     return created_company
+
+
+@company_router.put("/{id}", response_model=Company)
+async def update_power_data(id: str, power_data: UpdateCompany):
+    company_builder = CompanyBuilder()
+    company = company_service.update(
+        company=company_builder.build({"id": id, **dict(power_data)}),
+    )
+    return company
+
+
+@company_router.delete("/{id}")
+async def update_power_data(id: str):
+    company_service.delete(id)
