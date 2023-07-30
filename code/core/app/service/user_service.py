@@ -15,6 +15,7 @@ class UserService:
         return self.__user_repository.create(user=user)
 
     def update(self, user: User) -> User:
+        user.set_password(user.password)
         return self.__user_repository.update(user=user)
 
     def delete(self, id: int) -> User:

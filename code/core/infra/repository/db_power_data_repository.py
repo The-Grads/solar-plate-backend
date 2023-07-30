@@ -90,7 +90,6 @@ class DbPowerDataRepository(PowerDataRepository):
                 db.session.delete(power_data_model)
                 db.session.commit()
 
-                return self.builder.build_from_model(model=power_data_model)
             except Exception as error:
                 db.session.rollback()
                 raise error

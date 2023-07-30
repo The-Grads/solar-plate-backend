@@ -19,6 +19,23 @@ class UserToken(BaseModel):
     token_type: str
 
 
+class UpdateUser(BaseModel):
+    name: str
+    password: str
+    email: str | None = None
+
+    class Config:
+        json_schema_extra = {
+            "examples": [
+                {
+                    "name": "User",
+                    "email": "test@test.com",
+                    "password": "password",
+                }
+            ]
+        }
+
+
 class CreateUser(BaseModel):
     name: str
     password: str

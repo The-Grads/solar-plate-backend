@@ -88,7 +88,6 @@ class DbSolarPlateRepository(SolarPlateRepository):
                 db.session.delete(solar_plate_model)
                 db.session.commit()
 
-                return self.builder.build_from_model(model=solar_plate_model)
             except Exception as error:
                 db.session.rollback()
                 raise error

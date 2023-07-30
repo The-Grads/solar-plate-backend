@@ -71,7 +71,38 @@ class DbUserRepository(UserRepository):
         return None
 
     def update(self, user: User) -> List[User]:
-        raise NotImplementedError
+        with DBConnectionHandler() as db:
+            try:
+                user_model = db.session.query(UserModel).filter_by(id=user.id).one()
+
+                user_model.name = user.name
+                user_model.email = user.email
+                user_model.password = user.password
+                user_model.company_id = user.company_id
+
+                db.session.add(user_model)
+                db.session.commit()
+
+                return self.builder.build_from_model(model=user_model)
+            except Exception as error:
+                db.session.rollback()
+                raise error
+            finally:
+                db.session.close()
+
+        return None
 
     def delete(self, id: str) -> None:
-        raise NotImplementedError
+        with DBConnectionHandler() as db:
+            try:
+                user_model = db.session.query(UserModel).filter_by(id=id).one()
+                db.session.delete(user_model)
+                db.session.commit()
+
+            except Exception as error:
+                db.session.rollback()
+                raise error
+            finally:
+                db.session.close()
+
+        return None

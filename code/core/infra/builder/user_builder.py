@@ -10,6 +10,7 @@ class UserBuilder(BaseBuilder):
 
     def build(self, json_data: dict) -> User:
         return User(
+            id=json_data.get("id"),
             name=json_data.get("name"),
             email=json_data.get("email"),
             password=json_data.get("password"),
