@@ -4,7 +4,7 @@ from typing import List
 from fastapi import APIRouter
 
 from core.infra.builder.power_data_builder import PowerDataBuilder
-from core.infra.factory.power_data_factory import PowerDataServiceFactory
+from core.infra.factory.power_service_data_factory import PowerDataServiceFactory
 from core.infra.schema.power_data import CreatePowerData, PowerData
 
 power_data_router = APIRouter(

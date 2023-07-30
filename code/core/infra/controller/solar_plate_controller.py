@@ -4,7 +4,7 @@ from typing import List
 from fastapi import APIRouter
 
 from core.infra.builder.solar_plate_builder import SolarPlateBuilder
-from core.infra.factory.solar_plate_factory import SolarPlateServiceFactory
+from core.infra.factory.solar_service_plate_factory import SolarPlateServiceFactory
 from core.infra.schema.solar_plate import CreateSolarPlate, SolarPlate
 
 solar_plate_router = APIRouter(

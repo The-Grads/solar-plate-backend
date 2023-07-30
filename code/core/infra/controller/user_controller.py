@@ -1,10 +1,12 @@
 from datetime import datetime
-from typing import List
+from typing import Annotated, List
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends, Request
+from fastapi.security import OAuth2PasswordBearer
 
 from core.infra.builder.user_builder import UserBuilder
-from core.infra.factory import UserServiceFactory
+from core.infra.factory.auth_service_factory import AuthServiceFactory
+from core.infra.factory.user_service_factory import UserServiceFactory
 from core.infra.schema.user import CreateUser, User
 
 user_router = APIRouter(

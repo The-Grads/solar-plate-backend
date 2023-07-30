@@ -13,6 +13,11 @@ class User(Entity):
     solar_plates: Optional[List[SolarPlate]]
 
 
+class UserToken(BaseModel):
+    access_token: str
+    token_type: str
+
+
 class CreateUser(BaseModel):
     name: str
     password: str

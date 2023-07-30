@@ -41,3 +41,8 @@ makemigrations:
 # Apply migration
 migrate:
 	$(DOCKER_COMPOSE) exec app make migrate
+
+reset-db:
+	make remove-db
+	$(DOCKER_COMPOSE) up db 
+	make migrate
