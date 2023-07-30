@@ -25,7 +25,7 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
 
 
 core_router.include_router(auth_router)
-core_router.include_router(company_router)
+core_router.include_router(company_router, dependencies=[Depends(get_current_user)])
 core_router.include_router(user_router, dependencies=[Depends(get_current_user)])
 core_router.include_router(solar_plate_router, dependencies=[Depends(get_current_user)])
 core_router.include_router(power_data_router, dependencies=[Depends(get_current_user)])
