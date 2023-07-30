@@ -8,6 +8,6 @@ from .power_data import PowerData
 
 @dataclasses.dataclass(init=True, frozen=True, slots=True, kw_only=True)
 class SolarPlate(BaseEntity):
-    user_id: int
+    user_id: str
     name: Optional[str] = None
     power_data: Optional[List[PowerData]] = None

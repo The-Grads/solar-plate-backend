@@ -56,6 +56,7 @@ class DbUserRepository(UserRepository):
                     name=user.name,
                     email=user.email,
                     password=user.password,
+                    company_id=user.company_id,
                 )
                 db.session.add(user_model)
                 db.session.commit()

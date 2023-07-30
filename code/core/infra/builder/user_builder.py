@@ -13,6 +13,7 @@ class UserBuilder(BaseBuilder):
             name=json_data.get("name"),
             email=json_data.get("email"),
             password=json_data.get("password"),
+            company_id=json_data.get("company_id"),
         )
 
     def build_from_model(self, model: UserModel):
@@ -21,6 +22,7 @@ class UserBuilder(BaseBuilder):
             name=model.name,
             email=model.email,
             password=model.password,
+            company_id=str(model.company_id),
             solar_plates=[
                 self.solar_plate_builder.build_from_model(model=solar_plate)
                 for solar_plate in model.solar_plates

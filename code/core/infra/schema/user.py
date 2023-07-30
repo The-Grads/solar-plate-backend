@@ -9,6 +9,7 @@ from .solar_plate import SolarPlate
 
 class User(Entity):
     name: str
+    company_id: Optional[str] = None
     email: str | None = None
     solar_plates: Optional[List[SolarPlate]]
 
@@ -21,6 +22,7 @@ class UserToken(BaseModel):
 class CreateUser(BaseModel):
     name: str
     password: str
+    company_id: Optional[str] = None
     email: str | None = None
 
     class Config:
@@ -30,6 +32,7 @@ class CreateUser(BaseModel):
                     "name": "User",
                     "email": "test@test.com",
                     "password": "password",
+                    "company_id": "2b7211c7-59d2-4029-a725-906caab00272",
                 }
             ]
         }

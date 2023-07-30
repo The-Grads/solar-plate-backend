@@ -12,6 +12,7 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 @dataclasses.dataclass(init=True, frozen=True, slots=True, kw_only=True)
 class User(BaseEntity):
+    company_id: str
     name: Optional[str] = None
     email: Optional[str] = None
     password: Optional[str] = None

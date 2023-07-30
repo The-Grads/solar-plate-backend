@@ -13,3 +13,6 @@ class CompanyModel(BaseModel):
         String(50),
         nullable=False,
     )
+    users: Mapped[List["UserModel"]] = relationship(
+        "UserModel", back_populates="company", cascade="all, delete"
+    )
