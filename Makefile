@@ -42,6 +42,7 @@ makemigrations:
 migrate:
 	$(DOCKER_COMPOSE) exec app make migrate
 
+# Remove and load initial db data
 reset-db:
 	make remove-db
 	$(DOCKER_COMPOSE) up -d db 
