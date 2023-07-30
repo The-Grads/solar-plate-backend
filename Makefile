@@ -44,5 +44,7 @@ migrate:
 
 reset-db:
 	make remove-db
-	$(DOCKER_COMPOSE) up db 
+	$(DOCKER_COMPOSE) up -d db 
+	sleep 3
 	make migrate
+	$(DOCKER_COMPOSE) exec app python3 core/infra/script/load_initial_data.py
