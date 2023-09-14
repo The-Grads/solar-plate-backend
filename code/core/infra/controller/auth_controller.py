@@ -1,15 +1,13 @@
-from datetime import datetime
-from typing import Annotated, List, Union
+from typing import Annotated
 
-from fastapi import APIRouter, Depends, FastAPI, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi import APIRouter, Depends
+from fastapi.security import OAuth2PasswordRequestForm
 
-from core.infra.builder.user_builder import UserBuilder
 from core.infra.factory.auth_service_factory import AuthServiceFactory
-from core.infra.schema.user import CreateUser, User, UserToken
+from core.infra.schema.user import UserToken
 
 auth_router = APIRouter(
-    tags=["auth"],
+    tags=["Auth"],
     prefix="/auth",
     responses={404: {"description": "Not found"}},
 )
