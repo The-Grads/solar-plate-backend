@@ -12,11 +12,11 @@ build:
 
 # Run development containers
 run-dev:
-	$(DOCKER_COMPOSE) -f docker-compose.yml up db app
+	$(DOCKER_COMPOSE) -f docker-compose.yml up 
 
 # Run all containers in detached mode
 run-dev-d:
-	$(DOCKER_COMPOSE) -f docker-compose.yml up -d db app
+	$(DOCKER_COMPOSE) -f docker-compose.yml up -d 
 
 # Run database in detached mode
 run-db:
