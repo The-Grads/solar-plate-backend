@@ -15,6 +15,7 @@ class User(Entity):
 
 
 class UserToken(BaseModel):
+    user_id: str
     access_token: str
     token_type: str
 

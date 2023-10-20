@@ -29,7 +29,10 @@ class AuthService:
         payload = {"sub": user.email, "exp": expired_at}
         access_token = jwt.encode(payload, Config.APP_SECRET_KEY)
 
-        return {"access_token": access_token, "token_type": "bearer"}
+        return {
+            "user_id": user.id,
+            "access_token": access_token, 
+            "token_type": "bearer"}
 
     def verify_token(self, access_token):
         try:
