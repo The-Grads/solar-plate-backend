@@ -10,9 +10,13 @@ from shared.infra.models import BaseModel
 class PowerDataModel(BaseModel):
     __tablename__ = "power_data"
 
-    power_delivery: float = Column(
+    power_delivery_ac: float = Column(
         Float,
-        nullable=False,
+        nullable=True,
+    )
+    power_delivery_dc: float = Column(
+        Float,
+        nullable=True,
     )
     event_date: Mapped[datetime] = Column(DateTime, nullable=True)
     solar_plate_id: Mapped[int] = Column(

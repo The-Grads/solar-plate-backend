@@ -8,7 +8,8 @@ class PowerDataBuilder(BaseBuilder):
         return PowerData(
             id=json_data.get("id"),
             solar_plate_id=json_data.get("solar_plate_id"),
-            power_delivery=json_data.get("power_delivery"),
+            power_delivery_ac=json_data.get("power_delivery_ac"),
+            power_delivery_dc=json_data.get("power_delivery_dc"),
             event_date=json_data.get("event_date"),
         )
 
@@ -16,7 +17,8 @@ class PowerDataBuilder(BaseBuilder):
         return PowerData(
             id=str(model.id),
             solar_plate_id=str(model.solar_plate_id),
-            power_delivery=model.power_delivery,
+            power_delivery_ac=model.power_delivery_ac,
+            power_delivery_dc=model.power_delivery_dc,
             event_date=model.event_date,
             created_at=model.created_at,
             updated_at=model.updated_at,

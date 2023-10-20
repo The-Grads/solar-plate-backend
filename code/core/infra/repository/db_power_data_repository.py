@@ -43,7 +43,8 @@ class DbPowerDataRepository(PowerDataRepository):
         with DBConnectionHandler() as db:
             try:
                 power_data_model = PowerDataModel(
-                    power_delivery=power_data.power_delivery,
+                    power_delivery_ac=power_data.power_delivery_ac,
+                    power_delivery_dc=power_data.power_delivery_dc,
                     solar_plate_id=power_data.solar_plate_id,
                     event_date=power_data.event_date,
                 )
@@ -65,7 +66,8 @@ class DbPowerDataRepository(PowerDataRepository):
                 power_data_model = (
                     db.session.query(PowerDataModel).filter_by(id=power_data.id).one()
                 )
-                power_data_model.power_delivery = power_data.power_delivery
+                power_data_model.power_delivery_ac = power_data.power_delivery_ac
+                power_data_model.power_delivery_dc = power_data.power_delivery_dc
                 power_data_model.solar_plate_id = power_data.solar_plate_id
                 power_data_model.event_date = power_data.event_date
 
